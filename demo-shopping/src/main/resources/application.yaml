@@ -1,0 +1,7 @@
+server.port: 8082
+
+
+api:
+  jsonplaceholder:
+    domain: 'https://jsonplaceholder.typicode.com'
+    endpoint: '/user'
