@@ -1,0 +1,26 @@
+server.port: 8085
+
+api:
+  finnhub:
+    token: 'ck46ck1r01qus81pqgegck46ck1r01qus81pqgf0'
+    domain: 'finnhub.io'
+    base-url: 'api/v1'
+    endpoints:
+      stock:
+        profile2: '/stock/profile2'
+        quote: '/quote'
+        all: '/stock/symbol'
+
+spring.datasource:
+  url: 'jdbc:postgresql://localhost:5432/postgres'
+  username: 'postgres'
+  password: 'A35675465'
+  #url: 'jdbc:h2:mem:testdb'
+spring.jpa:
+  show-sql: true
+  properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  #properties.hibernate.dialect: org.h2.Driver
+  hibernate.ddl-auto: validate
+
+spring.sql.init:
+  mode: always

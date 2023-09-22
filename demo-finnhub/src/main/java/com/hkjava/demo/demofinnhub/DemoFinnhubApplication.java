@@ -1,14 +1,18 @@
-package com.example.finnhub;
+package com.hkjava.demo.demofinnhub;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class FinnhubApplication {
 
-	
+@SpringBootApplication
+public class DemoFinnhubApplication {
+
 	public static void main(String[] args) {
-		SpringApplication.run(FinnhubApplication.class, args);
+		SpringApplication.run(DemoFinnhubApplication.class, args);
+
+		
+
 	}
 
 }

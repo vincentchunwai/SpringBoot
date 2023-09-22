@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.finnhub.controller.finnIOperation;
+import com.example.finnhub.entity.StockEntity;
 import com.example.finnhub.framework.ApiResponse;
 import com.example.finnhub.framework.BusinessException;
 import com.example.finnhub.framework.Code;
@@ -22,6 +23,8 @@ public class finnController implements finnIOperation {
   
   @Autowired
   finnService finnService;
+
+  
   @Override
   public ResponseEntity<ApiResponse<Combine>> showInfo(String symbol) throws Exception{
     Combine combine =  Combine.builder()
@@ -34,4 +37,10 @@ public class finnController implements finnIOperation {
     ApiResponse<Combine> response = ApiResponse.<Combine>builder().ok().data(combine).build();
     return ResponseEntity.ok().body(response);
   }
+
+  @Override
+  public StockEntity save(StockEntity stock){
+    return finnService.save(stock);
+  }
+
 }
