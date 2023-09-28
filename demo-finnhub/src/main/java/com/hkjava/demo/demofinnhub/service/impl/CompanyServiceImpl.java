@@ -3,6 +3,7 @@ package com.hkjava.demo.demofinnhub.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,6 +18,7 @@ import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.Code;
 import com.hkjava.demo.demofinnhub.infra.Protocol;
+import com.hkjava.demo.demofinnhub.infra.RedisHelper;
 import com.hkjava.demo.demofinnhub.model.CompanyProfile;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
 import com.hkjava.demo.demofinnhub.model.repository.StockPriceRepository;
@@ -30,6 +32,9 @@ public class CompanyServiceImpl implements CompanyService {
 
   @Autowired
   private RestTemplate restTemplate;
+
+  @Autowired
+  private RedisHelper<CompanyProfile> redisProfileHelper;
 
   @Autowired
   StockRepository stockRepository;
@@ -56,6 +61,11 @@ public class CompanyServiceImpl implements CompanyService {
     return stockRepository.save(stock); // insert into
   }
 
+  @Override
+  public void refreshCompanyProfile(String symbol) throws FinnhubException{
+    // getCompanyProfile(String symbol)
+    // if normal reponse, findById
+  }
   @Override
   public StockPrice save(Long Stock_id, StockPrice stockPrice){
     Stock stock = stockRepository.findById(Stock_id).orElseThrow(() -> new EntityNotFoundException());
@@ -113,10 +123,23 @@ public class CompanyServiceImpl implements CompanyService {
         .toUriString();
     System.out.println("url=" + url);
     try {
-      return restTemplate.getForObject(url, CompanyProfile.class);
+      CompanyProfile profile = restTemplate.getForObject(url, CompanyProfile.class);
+
+      if(Objects.nonNull(profile)){
+        redisProfileHelper.set(symbol, profile, 60000);
+        return profile;
+      }
+      else{
+        Object cachedObject = redisProfileHelper.get(symbol);
+         if(Objects.isNull(cachedObject) && cachedObject instanceof CompanyProfile)
+          return (CompanyProfile) cachedObject;
+      }
     } catch (RestClientException e) {
-      throw new FinnhubException(Code.FINNHUB_PROFILE2_NOTFOUND);
+      Object profileFromRedis = redisProfileHelper.get(symbol);
+      if(profileFromRedis == null)
+          throw new FinnhubException(Code.FINNHUB_PROFILE2_NOTFOUND);
     }
+    throw new FinnhubException(Code.NOTFOUND);
 
   }
 

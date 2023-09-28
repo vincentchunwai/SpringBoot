@@ -3,6 +3,10 @@ package com.hkjava.demo.demofinnhub.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
+import com.hkjava.demo.demofinnhub.annotation.CheckSymbol;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +30,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
+@Component
 public class StockSymbolEntity implements Serializable{
   
   @Id // primary key
@@ -63,4 +68,7 @@ public class StockSymbolEntity implements Serializable{
 
   @Column(name = "prev_day_close", columnDefinition = "NUMERIC(15,2)")
   private double prevDayClose;
+
+  @Column(name = "status", columnDefinition = "VARCHAR(1)")
+  private Character stockStatus;
 }

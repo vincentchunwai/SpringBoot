@@ -46,6 +46,7 @@ public class WebStockServiceImpl implements WebStockService {
   @Override
   public StockDTO stockInfo(String symbol) throws FinnhubException {
     CompanyProfile profile = companyService.getCompanyProfile(symbol);
+    
     Quote quote = stockService.getQuote(symbol);
     if (profile == null && quote == null)
       throw new FinnhubException(Code.THIRD_PARTY_SERVER_UNAVAILABLE);
@@ -81,6 +82,12 @@ public class WebStockServiceImpl implements WebStockService {
   @Override
   public List<StockSymbolEntity> findAll() {
     return this.stockSymbolRepository.findAll();
+  }
+
+  @Override
+  public StockSymbolEntity findBySymbol(String stockSymbol){
+    
+    return this.stockSymbolRepository.findBySymbol(stockSymbol);
   }
 
 }

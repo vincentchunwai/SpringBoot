@@ -2,7 +2,13 @@ package com.hkjava.demo.demofinnhub.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +29,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@Component
 public class Stock implements Serializable {
 
   @Id // primary key
@@ -35,7 +42,7 @@ public class Stock implements Serializable {
   private String companyName;
 
   @Column(name = "ipo_date")
-  private LocalDate ipoDate;
+  private LocalDate ipo;
 
   private String logo;
 

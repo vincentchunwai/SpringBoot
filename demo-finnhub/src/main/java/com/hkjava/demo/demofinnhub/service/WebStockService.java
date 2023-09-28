@@ -14,4 +14,6 @@ public interface WebStockService {
   List<StockSymbolDTO> symbolFindBycurrentPrice(double currentPrice);
 
   List<StockSymbolEntity> findAll();
+
+  StockSymbolEntity findBySymbol(String stockSymbol);
 }

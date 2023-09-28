@@ -5,7 +5,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.hkjava.demo.demofinnhub.infra.RedisHelper;
+import com.hkjava.demo.demofinnhub.infra.Utilities;
+import com.hkjava.demo.demofinnhub.model.CompanyProfile;
 
 @Configuration
 public class AppConfig {
@@ -19,14 +32,47 @@ public class AppConfig {
   }
 
   @Bean
-  RestTemplate restTemplate() {
-    return new RestTemplate();
+public RestTemplate restTemplate() {
+    RestTemplate restTemplate = new RestTemplate();
+    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+    return restTemplate;
+}
+
+  @Bean
+  Utilities utilities() {
+    return new Utilities();
   }
-  
+
+  @Bean
+  @Primary
+  public ObjectMapper objectMapper() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new JavaTimeModule()); // Register the JavaTimeModule
+    return objectMapper;
+  }
+
   @Bean
   @Qualifier("finnhubToken")
   String finnhubToken() {
     return token;
+  }
+
+  @Bean
+    RedisTemplate<String, CompanyProfile> redisTemplate(RedisConnectionFactory redisConnectionFactory,
+    ObjectMapper objectMapper){
+    RedisTemplate<String, CompanyProfile> redisTemplate = new RedisTemplate<>();
+    redisTemplate.setConnectionFactory(redisConnectionFactory);
+    redisTemplate.setKeySerializer(new StringRedisSerializer());
+    redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(CompanyProfile.class));
+    
+    ((Jackson2JsonRedisSerializer<?>) redisTemplate.getValueSerializer()).setObjectMapper(objectMapper);
+    return redisTemplate;
+  }
+
+  @Bean
+  RedisHelper<CompanyProfile> redisProfileHelper(RedisTemplate<String, CompanyProfile> redisTemplate){
+    return new RedisHelper<>(redisTemplate);
   }
 
 }

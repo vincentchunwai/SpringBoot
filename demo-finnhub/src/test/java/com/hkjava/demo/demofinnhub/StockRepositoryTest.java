@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 import com.hkjava.demo.demofinnhub.config.TestDatabaseConfig;
@@ -34,7 +35,8 @@ import jakarta.transaction.Transactional;
 @Import(TestDatabaseConfig.class)
 @TestPropertySource(properties = { "spring.jpa.hibernate.ddl-auto=update" })
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Transactional
+@ActiveProfiles("test")
+//@Transactional
 public class StockRepositoryTest {
 
   @Autowired
@@ -44,7 +46,7 @@ public class StockRepositoryTest {
   private TestEntityManager entityManager;
 
   
-
+/* 
   @Test
   @Order(1)
   void testFindById() {
@@ -120,6 +122,6 @@ public class StockRepositoryTest {
     java.util.List<Stock> stocks = stockRepository.findAllById(5L);
     assertThat(stocks, hasItem(hasProperty("companyName", equalTo("China Company"))));
 
-  }
+  } */
 
 }

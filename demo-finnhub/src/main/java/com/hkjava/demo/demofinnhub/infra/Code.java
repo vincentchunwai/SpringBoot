@@ -14,8 +14,12 @@ public enum Code {
   // Server
   SERVER_TIMEOUT(50000, "Server Timeout."), //
   THIRD_PARTY_SERVER_UNAVAILABLE(50001, "Third Party Service Unavailable."), //
+  REDIS_SERVER_UNAVAILABLE(50002, "Redis unavailable"),
   // RuntimeException: 90000 - 99999
   IAE_EXCEPTION(90000, "Illegal Argument Exception."), //
+  INVALID_DATE_TIME_EXCEPTION(99999, "InvalidDateTimeFormatException"),
+  ENTITY_NOT_FOUND(90001, "Entity Not Found."), //
+  VALIDATOR_FAIL(90002, "Validator Fail.")
   ;
 
   private int code;

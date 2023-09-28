@@ -1,13 +1,23 @@
 package com.hkjava.demo.demofinnhub.model;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.EqualsAndHashCode.Include;
 
 @Getter
 @Setter
@@ -15,8 +25,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class CompanyProfile {
-  
+@EqualsAndHashCode
+public class CompanyProfile implements Serializable {
+
   private String country;
 
   private String currency;
@@ -45,7 +56,5 @@ public class CompanyProfile {
   private String ticker;
 
   private String weburl;
-
-  
 
 }

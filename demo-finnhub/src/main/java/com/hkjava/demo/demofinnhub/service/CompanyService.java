@@ -13,6 +13,8 @@ public interface CompanyService {
   
   CompanyProfile getCompanyProfile(String symbol) throws FinnhubException;
 
+  void refreshCompanyProfile(String symbol) throws FinnhubException;
+
   Stock save(Stock stock);
 
   void deleteById(Long id);

@@ -1,6 +1,11 @@
 package com.hkjava.demo.demofinnhub.model.dto;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

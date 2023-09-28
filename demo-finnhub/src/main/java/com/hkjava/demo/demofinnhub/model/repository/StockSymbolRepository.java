@@ -12,8 +12,8 @@ import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface StockSymbolRepository extends JpaRepository<StockSymbolEntity, Long>{
-  
+public interface StockSymbolRepository extends JpaRepository<StockSymbolEntity, Long> {
+
   @Query("select s from StockSymbolEntity s where s.currentPrice >= :price")
   List<StockSymbolEntity> findAllBycurrentPrice(double price);
 
@@ -21,4 +21,14 @@ public interface StockSymbolRepository extends JpaRepository<StockSymbolEntity, 
   @Transactional
   @Query("DELETE FROM StockSymbolEntity")
   void deleteAllCustom();
+
+  @Modifying
+  @Transactional
+  @Query(value = "ALTER SEQUENCE finnhub_copy_id_seq RESTART WITH 1", nativeQuery = true)
+  void resetId();
+
+  @Query("select s from StockSymbolEntity s where s.stockSymbol = :symbol")
+  StockSymbolEntity findBySymbol(String symbol);
+
+
 }

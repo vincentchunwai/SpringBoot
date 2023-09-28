@@ -7,20 +7,39 @@ api:
     base-url: 'api/v1'
     endpoints:
       stock:
+        indicator: '/indicator'
         profile2: '/stock/profile2'
         quote: '/quote'
         all: '/stock/symbol'
 
 spring.datasource:
-  url: 'jdbc:postgresql://localhost:5432/postgres'
-  username: 'postgres'
-  password: 'A35675465'
-  #url: 'jdbc:h2:mem:testdb'
+  # driverClassName: org.hibernate.dialect.PostgreSQLDialect
+  driverClassName: 'org.h2.Driver'
+  url: 'jdbc:h2:mem:jpademo'
+  username: 'sa'
+  password: 
+  # url: 'jdbc:postgresql://localhost:5432/postgres'
+  # username: 'postgres'
+  # password: 'admin1234'
+spring:
+  h2:
+    console:
+      enabled: true
+
+  
+
 spring.jpa:
   show-sql: true
-  properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-  #properties.hibernate.dialect: org.h2.Driver
-  hibernate.ddl-auto: validate
+  hibernate.ddl-auto: update # update
+  ## Hibernate Properties
+  # properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  # properties.hibernate.dialect: org.h2.Driver
+  # Hibernate ddl auto (create, create-drop, validate, update)
+spring.data.redis:
+  host: localhost
+  port: 6379
 
 spring.sql.init:
-  mode: always
+  mode: always # always
+  platform: h2
+  # schema-locations: classpath:ddl/DDL_DROPS.sql, classpath:ddl/DDL_TUSERS.sql, classpath:ddl/DDL_TPOSTS.sql

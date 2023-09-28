@@ -1,12 +1,7 @@
 package com.hkjava.demo.demofinnhub.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +30,7 @@ public class StockPrice implements Serializable {
   private Long id;
 
   @Column(name = "datetime")
-  private LocalDateTime dateTime;
+  private final LocalDateTime dateTime = LocalDateTime.now();
   
   @Column(name = "current_price", columnDefinition = "NUMERIC(15,2)")
   private double currentPrice;
@@ -53,7 +48,7 @@ public class StockPrice implements Serializable {
   private double prevDayClose;
 
   @ManyToOne
-  @JoinColumn(name = "stock_id", nullable = false)
-  //@JsonIgnore
+  @JoinColumn(name = "stock_id", nullable = false) 
   private Stock stock;
+
 }

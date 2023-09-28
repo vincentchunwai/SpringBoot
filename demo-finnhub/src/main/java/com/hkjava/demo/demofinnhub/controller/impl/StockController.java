@@ -1,7 +1,9 @@
 package com.hkjava.demo.demofinnhub.controller.impl;
 
 import java.util.List;
+import java.util.Objects;
 
+import org.hibernate.annotations.DialectOverride.OverridesAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,7 @@ import com.hkjava.demo.demofinnhub.infra.ApiResponse;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
 import com.hkjava.demo.demofinnhub.model.dto.StockSymbolDTO;
+import com.hkjava.demo.demofinnhub.model.dto.SymbolDTO;
 import com.hkjava.demo.demofinnhub.service.StockService;
 import com.hkjava.demo.demofinnhub.service.WebStockService;
 
@@ -27,14 +30,12 @@ public class StockController implements StockOperation {
   StockService stockService;
 
   @Override
-  public ApiResponse<StockDTO> stockInfo(String symbol) // ""
+  public ApiResponse<StockDTO> stockInfo(SymbolDTO symbol) // ""
       throws FinnhubException {
-    if (symbol.isBlank())
-      throw new IllegalArgumentException("Parameter Symbol is blank");
       
     return ApiResponse.<StockDTO>builder() //
         .ok() //
-        .data(webStockService.stockInfo(symbol)) //
+        .data(webStockService.stockInfo(symbol.getSymbol())) //
         .build();
   }
 
@@ -58,6 +59,11 @@ public class StockController implements StockOperation {
   @Override
   public List<StockSymbolEntity> findAll(){
     return webStockService.findAll();
+  }
+
+  @Override
+  public StockSymbolEntity findBySymbol(String symbol){
+    return webStockService.findBySymbol(symbol);
   }
 
 }
