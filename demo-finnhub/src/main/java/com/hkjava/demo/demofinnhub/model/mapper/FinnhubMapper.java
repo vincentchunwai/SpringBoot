@@ -4,8 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
-import com.hkjava.demo.demofinnhub.model.Quote;
+
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
+import com.hkjava.demo.demofinnhub.model.apiModel.Quote;
 import com.hkjava.demo.demofinnhub.model.dto.CompanyProfileDTO;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
 

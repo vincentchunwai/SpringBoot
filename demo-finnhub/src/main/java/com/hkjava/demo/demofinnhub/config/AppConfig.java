@@ -17,8 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hkjava.demo.demofinnhub.infra.RedisHelper;
-import com.hkjava.demo.demofinnhub.infra.Utilities;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
+import com.hkjava.demo.demofinnhub.infra.UnixTimeHelper;
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
 
 @Configuration
 public class AppConfig {
@@ -40,8 +40,8 @@ public RestTemplate restTemplate() {
 }
 
   @Bean
-  Utilities utilities() {
-    return new Utilities();
+  UnixTimeHelper utilities() {
+    return new UnixTimeHelper();
   }
 
   @Bean

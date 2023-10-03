@@ -6,7 +6,7 @@ import java.util.List;
 import com.hkjava.demo.demofinnhub.entity.Stock;
 import com.hkjava.demo.demofinnhub.entity.StockPrice;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
 import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
 
 public interface CompanyService {
@@ -32,4 +32,6 @@ public interface CompanyService {
   List<StockPrice> findByDateTime(LocalDateTime localDateTime);
 
   List<StockPrice> findByDateTimeGreaterThanPrevDateClose();
+
+  List<StockPrice> findLastDataForEachStock();
 }

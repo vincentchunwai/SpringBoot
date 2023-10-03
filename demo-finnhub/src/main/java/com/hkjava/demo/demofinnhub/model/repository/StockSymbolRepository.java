@@ -17,6 +17,8 @@ public interface StockSymbolRepository extends JpaRepository<StockSymbolEntity, 
   @Query("select s from StockSymbolEntity s where s.currentPrice >= :price")
   List<StockSymbolEntity> findAllBycurrentPrice(double price);
 
+  boolean existsByStockSymbol(String stockSymbol);
+
   @Modifying
   @Transactional
   @Query("DELETE FROM StockSymbolEntity")

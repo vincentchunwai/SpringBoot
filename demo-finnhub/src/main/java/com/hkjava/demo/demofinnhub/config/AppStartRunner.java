@@ -15,9 +15,9 @@ import com.hkjava.demo.demofinnhub.controller.impl.StockController;
 import com.hkjava.demo.demofinnhub.entity.Stock;
 import com.hkjava.demo.demofinnhub.entity.StockPrice;
 import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
-import com.hkjava.demo.demofinnhub.model.Quote;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
+import com.hkjava.demo.demofinnhub.model.apiModel.Quote;
 import com.hkjava.demo.demofinnhub.model.dto.CompanyProfileDTO;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
 import com.hkjava.demo.demofinnhub.model.dto.StockSymbolDTO;
@@ -65,10 +65,11 @@ public class AppStartRunner implements CommandLineRunner{
   //@Transactional
   //@PostConstruct
   public synchronized void run(String ... args) throws Exception{
+      
 
-      stockSymbolRepository.deleteAllCustom();
+      /* stockSymbolRepository.deleteAllCustom();
       stockRepository.deleteAllCustom();
-      stockPriceRepository.deleteAllCustom();
+      stockPriceRepository.deleteAllCustom(); */
 
       List<StockSymbol> symbols = stockService
           .getSymbol("US")
@@ -93,8 +94,10 @@ public class AppStartRunner implements CommandLineRunner{
               .prevDayClose(stockDTO.getPrevDayClose())
               .ipoDate(stockDTO.getCompanyProfile().getIpoDate())
               .build();
-              stockSymbolRepository.save(target);
-              availableSymbols.add(symbol.getSymbol());
+              if(!stockSymbolRepository.existsByStockSymbol(target.getStockSymbol()))
+                  stockSymbolRepository.save(target);
+                  availableSymbols.add(symbol.getSymbol());
+                
           
        CompanyProfile companyDTO = companyService.getCompanyProfile(symbol.getSymbol());
        Stock stockToSave = Stock.builder()
@@ -105,7 +108,9 @@ public class AppStartRunner implements CommandLineRunner{
             .ipo(companyDTO.getIpoDate())
             .logo(companyDTO.getLogo())
             .build();
-       companyService.save(stockToSave);
+              if(!stockRepository.existsByCompanyName(stockToSave.getCompanyName()))
+                  companyService.save(stockToSave);
+              
 
        Quote quote = stockService.getQuote(symbol.getSymbol());
         StockPrice stockPriceToSave = StockPrice.builder()
@@ -116,11 +121,12 @@ public class AppStartRunner implements CommandLineRunner{
               .prevDayClose(quote.getPrevDayClose())
               .stock(stockToSave)
               .build();
-        companyService.save(stockToSave.getId(), stockPriceToSave);
+            if(!stockPriceRepository.existsByStock(stockToSave))
+              companyService.save(stockToSave.getId(), stockPriceToSave);
       } catch (IllegalStateException ie){};
       }
     
     System.out.println("CommandLineRunner Completed");
-    SchedulerTaskConfig.start = true;
+    SchedulerMarketUpdate.start = true;
   }
 }

@@ -25,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import com.hkjava.demo.demofinnhub.entity.Stock;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.RedisHelper;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
 import com.hkjava.demo.demofinnhub.model.repository.StockRepository;
 import com.hkjava.demo.demofinnhub.service.CompanyService;
 import com.hkjava.demo.demofinnhub.service.StockService;

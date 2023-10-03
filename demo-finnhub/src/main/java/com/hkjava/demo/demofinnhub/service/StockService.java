@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
-import com.hkjava.demo.demofinnhub.model.Quote;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
+import com.hkjava.demo.demofinnhub.model.apiModel.Quote;
 
 public interface StockService {
 

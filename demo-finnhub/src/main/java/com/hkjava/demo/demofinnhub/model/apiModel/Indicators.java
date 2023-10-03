@@ -1,4 +1,4 @@
-package com.hkjava.demo.demofinnhub.model;
+package com.hkjava.demo.demofinnhub.model.apiModel;
 
 import java.io.Serializable;
 import java.util.List;

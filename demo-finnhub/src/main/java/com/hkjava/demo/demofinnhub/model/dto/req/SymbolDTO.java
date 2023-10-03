@@ -1,4 +1,4 @@
-package com.hkjava.demo.demofinnhub.model.dto;
+package com.hkjava.demo.demofinnhub.model.dto.req;
 
 import com.hkjava.demo.demofinnhub.annotation.CheckSymbol;
 

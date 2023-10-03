@@ -16,8 +16,8 @@ import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.Code;
 import com.hkjava.demo.demofinnhub.infra.Protocol;
-import com.hkjava.demo.demofinnhub.model.Quote;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
+import com.hkjava.demo.demofinnhub.model.apiModel.Quote;
 import com.hkjava.demo.demofinnhub.service.StockService;
 
 @Service

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.ApiResponse;
 import com.hkjava.demo.demofinnhub.infra.Indicator;
-import com.hkjava.demo.demofinnhub.model.Indicators;
+import com.hkjava.demo.demofinnhub.model.apiModel.Indicators;
 
 
 public interface IndicatorService {

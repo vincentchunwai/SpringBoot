@@ -15,7 +15,7 @@ import com.hkjava.demo.demofinnhub.infra.ApiResponse;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
 import com.hkjava.demo.demofinnhub.model.dto.StockSymbolDTO;
-import com.hkjava.demo.demofinnhub.model.dto.SymbolDTO;
+import com.hkjava.demo.demofinnhub.model.dto.req.SymbolDTO;
 import com.hkjava.demo.demofinnhub.service.StockService;
 import com.hkjava.demo.demofinnhub.service.WebStockService;
 

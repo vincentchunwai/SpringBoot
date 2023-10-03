@@ -1,6 +1,12 @@
 package com.hkjava.demo.demofinnhub.config;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +18,16 @@ import org.springframework.stereotype.Component;
 import com.hkjava.demo.demofinnhub.entity.Stock;
 import com.hkjava.demo.demofinnhub.entity.StockPrice;
 import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
-import com.hkjava.demo.demofinnhub.model.Quote;
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
+import com.hkjava.demo.demofinnhub.model.apiModel.Quote;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
+import com.hkjava.demo.demofinnhub.model.holidayCalendar.HolidayModel;
 import com.hkjava.demo.demofinnhub.model.repository.StockRepository;
 import com.hkjava.demo.demofinnhub.model.repository.StockSymbolRepository;
 import com.hkjava.demo.demofinnhub.service.CompanyService;
 import com.hkjava.demo.demofinnhub.service.StockService;
 import com.hkjava.demo.demofinnhub.service.WebStockService;
+import com.hkjava.demo.demofinnhub.service.publicHolidayAPI.HolidayService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -27,7 +35,7 @@ import jakarta.transaction.Transactional;
 
 @Component
 @EnableScheduling
-public class SchedulerTaskConfig {
+public class SchedulerMarketUpdate {
   
   public static boolean start = false;
 
@@ -52,31 +60,24 @@ public class SchedulerTaskConfig {
   @Autowired
   ModelMapper modelMapper;
 
-  @Scheduled(fixedRate = 10000)
-  public void fixedRateTask() throws InterruptedException{
-    if(start){
-      System.out.println("fixedRate task -" + System.currentTimeMillis());
-      Thread.sleep(15000L);
-    }
-  }
+  @Autowired
+  HolidayService holidayService;
 
-  @Scheduled(fixedDelay = 4000)
-  public void fixedDelayTask() throws InterruptedException{
-    if(start){
-      System.out.println("FixedDelay Task -" + System.currentTimeMillis());
-    }
-  }
-
-  @Scheduled(cron = "0/30 * 9-23 25 9 MON-FRI")
-  public void fixedTimeTask(){
-    if (start){
-      System.out.println("FixedTime Task -" + System.currentTimeMillis());
-    }
-  }
-
-  @Scheduled(fixedRate = 10000)
+  @Scheduled(fixedRate = 60000)
   @Transactional()
   public void stockUpdate() throws Exception{
+    DayOfWeek currentDayOfWeek = LocalDate.now(ZoneId.of("America/New_York")).getDayOfWeek();
+    LocalDate now = LocalDate.now();
+    List<LocalDate> holidays = holidayService.getHolidayModel("2023", "US")
+      .stream()
+      .map(HolidayModel::getDate)
+      .collect(Collectors.toList());
+  if (currentDayOfWeek != DayOfWeek.SATURDAY && currentDayOfWeek != DayOfWeek.SUNDAY
+          && !holidays.contains(now)){
+    LocalTime currentTime = LocalTime.now(ZoneId.of("America/New_York"));
+    LocalTime marketOpenTime = LocalTime.of(9, 30);
+    LocalTime marketCloseTime = LocalTime.of(16, 0);
+  if (currentTime.isAfter(marketOpenTime) && currentTime.isBefore(marketCloseTime)){
     for(StockSymbolEntity s: symbolRepository.findAll()){
       
       StockDTO q = webStockService.stockInfo(s.getStockSymbol());
@@ -108,12 +109,21 @@ public class SchedulerTaskConfig {
     }
     else{
       System.out.println("Stock symbol NOT FOUND" + s);
-      stockSymbolEntity.setStockStatus('I');
     }
 
      entityManager.merge(stockSymbolEntity);
+     entityManager.merge(stockToUpdate);
     }
   }
+  else {
+    System.out.println("Stock market is closed. No updates will be performed.");
+      }
+    }
+  else{
+    System.out.println("It's the weekend. No updates will be performed.");
+  }
+ }
+
 }
   
 

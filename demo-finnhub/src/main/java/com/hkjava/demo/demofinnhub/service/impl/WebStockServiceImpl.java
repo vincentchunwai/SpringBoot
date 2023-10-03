@@ -9,14 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
+import com.hkjava.demo.demofinnhub.entity.StockPrice;
 import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.Code;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
-import com.hkjava.demo.demofinnhub.model.Quote;
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
+import com.hkjava.demo.demofinnhub.model.apiModel.Quote;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
 import com.hkjava.demo.demofinnhub.model.dto.StockSymbolDTO;
 import com.hkjava.demo.demofinnhub.model.mapper.FinnhubMapper;
+import com.hkjava.demo.demofinnhub.model.repository.StockPriceRepository;
 import com.hkjava.demo.demofinnhub.model.repository.StockSymbolRepository;
 import com.hkjava.demo.demofinnhub.service.CompanyService;
 import com.hkjava.demo.demofinnhub.service.StockService;
@@ -41,6 +43,9 @@ public class WebStockServiceImpl implements WebStockService {
   StockSymbolRepository stockSymbolRepository;
 
   @Autowired
+  StockPriceRepository stockPriceRepository;
+
+  @Autowired
   FinnhubMapper finnhubMapper;
 
   @Override
@@ -51,6 +56,11 @@ public class WebStockServiceImpl implements WebStockService {
     if (profile == null && quote == null)
       throw new FinnhubException(Code.THIRD_PARTY_SERVER_UNAVAILABLE);
     return finnhubMapper.map(profile, quote);
+  }
+
+  @Override
+  public List<StockPrice> findAllPriceById(Long id){
+    return stockPriceRepository.findAllPriceById(id);
   }
 
   @Override

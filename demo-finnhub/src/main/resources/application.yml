@@ -11,16 +11,20 @@ api:
         profile2: '/stock/profile2'
         quote: '/quote'
         all: '/stock/symbol'
+  holiday:
+    domain: 'date.nager.at'
+    base-url: 'api/v3'
+    endpoint: '/PublicHolidays'
 
 spring.datasource:
-  # driverClassName: org.hibernate.dialect.PostgreSQLDialect
-  driverClassName: 'org.h2.Driver'
-  url: 'jdbc:h2:mem:jpademo'
-  username: 'sa'
-  password: 
-  # url: 'jdbc:postgresql://localhost:5432/postgres'
-  # username: 'postgres'
-  # password: 'admin1234'
+  driverClassName: 'org.hibernate.dialect.PostgreSQLDialect'
+  #driverClassName: 'org.h2.Driver'
+  #url: 'jdbc:h2:mem:jpademo'
+  #username: 'sa'
+  #password: 
+  url: 'jdbc:postgresql://localhost:5432/postgres'
+  username: 'postgres'
+  password: 'A35675465'
 spring:
   h2:
     console:
@@ -43,3 +47,5 @@ spring.sql.init:
   mode: always # always
   platform: h2
   # schema-locations: classpath:ddl/DDL_DROPS.sql, classpath:ddl/DDL_TUSERS.sql, classpath:ddl/DDL_TPOSTS.sql
+
+#spring.profiles.active: enableScheduling

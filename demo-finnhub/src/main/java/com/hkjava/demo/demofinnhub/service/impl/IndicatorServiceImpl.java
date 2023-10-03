@@ -29,9 +29,9 @@ import com.hkjava.demo.demofinnhub.infra.ApiResponse;
 import com.hkjava.demo.demofinnhub.infra.Code;
 import com.hkjava.demo.demofinnhub.infra.Indicator;
 import com.hkjava.demo.demofinnhub.infra.Protocol;
-import com.hkjava.demo.demofinnhub.infra.Utilities;
-import com.hkjava.demo.demofinnhub.model.Indicators;
+import com.hkjava.demo.demofinnhub.infra.UnixTimeHelper;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
+import com.hkjava.demo.demofinnhub.model.apiModel.Indicators;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
 import com.hkjava.demo.demofinnhub.service.IndicatorService;
 
@@ -48,7 +48,7 @@ public class IndicatorServiceImpl implements IndicatorService {
   private ObjectMapper objectMapper;
 
   @Autowired
-  private Utilities utilities;
+  private UnixTimeHelper utilities;
 
   @Autowired
   private RestTemplate restTemplate;

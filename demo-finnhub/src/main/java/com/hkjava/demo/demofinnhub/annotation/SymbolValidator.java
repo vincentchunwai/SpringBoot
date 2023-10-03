@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hkjava.demo.demofinnhub.config.AppStartRunner;
 import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
-import com.hkjava.demo.demofinnhub.model.dto.SymbolDTO;
+import com.hkjava.demo.demofinnhub.model.dto.req.SymbolDTO;
 import com.hkjava.demo.demofinnhub.model.repository.StockSymbolRepository;
 
 import jakarta.validation.ConstraintValidator;

@@ -11,7 +11,7 @@ import com.hkjava.demo.demofinnhub.controller.IndicatorOperation;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.ApiResponse;
 import com.hkjava.demo.demofinnhub.infra.Indicator;
-import com.hkjava.demo.demofinnhub.model.Indicators;
+import com.hkjava.demo.demofinnhub.model.apiModel.Indicators;
 import com.hkjava.demo.demofinnhub.service.IndicatorService;
 
 @RestController

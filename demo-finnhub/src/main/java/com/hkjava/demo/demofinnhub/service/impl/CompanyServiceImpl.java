@@ -19,8 +19,8 @@ import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.Code;
 import com.hkjava.demo.demofinnhub.infra.Protocol;
 import com.hkjava.demo.demofinnhub.infra.RedisHelper;
-import com.hkjava.demo.demofinnhub.model.CompanyProfile;
 import com.hkjava.demo.demofinnhub.model.StockSymbol;
+import com.hkjava.demo.demofinnhub.model.apiModel.CompanyProfile;
 import com.hkjava.demo.demofinnhub.model.repository.StockPriceRepository;
 import com.hkjava.demo.demofinnhub.model.repository.StockRepository;
 import com.hkjava.demo.demofinnhub.service.CompanyService;
@@ -108,6 +108,12 @@ public class CompanyServiceImpl implements CompanyService {
   public List<StockPrice> findByDateTimeGreaterThanPrevDateClose(){
     return stockPriceRepository.findByCurrentPriceIsGreaterThanPrevDayClose();
   }
+
+  @Override
+  public List<StockPrice> findLastDataForEachStock(){
+    return stockPriceRepository.findLastDataForEachStock();
+  }
+
 
   @Override
   public CompanyProfile getCompanyProfile(String symbol)

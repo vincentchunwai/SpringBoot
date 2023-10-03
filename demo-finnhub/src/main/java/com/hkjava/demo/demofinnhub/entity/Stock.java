@@ -32,6 +32,7 @@ import lombok.Setter;
 @Component
 public class Stock implements Serializable {
 
+
   @Id // primary key
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

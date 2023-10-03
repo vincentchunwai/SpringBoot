@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.ApiResponse;
 import com.hkjava.demo.demofinnhub.infra.Indicator;
-import com.hkjava.demo.demofinnhub.model.Indicators;
+import com.hkjava.demo.demofinnhub.model.apiModel.Indicators;
 
 public interface IndicatorOperation {
   
