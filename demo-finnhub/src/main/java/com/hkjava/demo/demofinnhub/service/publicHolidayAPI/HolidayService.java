@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -18,6 +19,7 @@ import com.hkjava.demo.demofinnhub.infra.Protocol;
 import com.hkjava.demo.demofinnhub.model.holidayCalendar.HolidayModel;
 
 @Service
+//@Qualifier("HolidayService")
 public class HolidayService {
 
   @Autowired

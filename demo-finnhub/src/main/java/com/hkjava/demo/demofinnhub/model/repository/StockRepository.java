@@ -19,6 +19,8 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
 
   List<Stock> findByCountry(String country);
 
+  boolean existsByCompanyName(String companyName);
+
   @Modifying
   @Transactional
   @Query("DELETE FROM Stock")

@@ -14,10 +14,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.hkjava.demo.demofinnhub.entity.Stock;
 import com.hkjava.demo.demofinnhub.entity.StockPrice;
 
+import io.swagger.annotations.ApiOperation;
+
 public interface DataOperation {
 
   @PostMapping(value = "/data/stock")
   @ResponseStatus(value = HttpStatus.OK)
+  @ApiOperation(value = "Get stockInfo", notes = "This endpoint retrieves stocks' information")
+    @io.swagger.annotations.ApiResponses({
+        @io.swagger.annotations.ApiResponse(code = 200, message = "Get Resource sucessfully"), 
+        @io.swagger.annotations.ApiResponse(code = 405, message = "Invalid input data")})
   Stock save(@RequestBody Stock stock);
 
   @PostMapping(value = "/data/{stock_id}/stockprice")

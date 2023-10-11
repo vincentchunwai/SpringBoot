@@ -3,6 +3,8 @@ package com.hkjava.demo.demofinnhub.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,7 +50,7 @@ public class StockPrice implements Serializable {
   @Column(name = "prev_day_close", columnDefinition = "NUMERIC(15,2)")
   private double prevDayClose;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "stock_id", nullable = false) 
   private Stock stock;
 

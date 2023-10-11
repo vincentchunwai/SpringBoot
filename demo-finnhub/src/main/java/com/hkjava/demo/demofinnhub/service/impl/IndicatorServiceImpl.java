@@ -38,6 +38,7 @@ import com.hkjava.demo.demofinnhub.service.IndicatorService;
 import io.lettuce.core.StrAlgoArgs.By;
 
 @Service
+//@Qualifier("IndicatorServiceImpl")
 public class IndicatorServiceImpl implements IndicatorService {
 
   @Autowired

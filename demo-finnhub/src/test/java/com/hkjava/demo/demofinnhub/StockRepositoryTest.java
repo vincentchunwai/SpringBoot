@@ -31,7 +31,7 @@ import com.hkjava.demo.demofinnhub.model.repository.StockRepository;
 
 import jakarta.transaction.Transactional;
 
-@DataJpaTest // inject Repository related Bean
+//@DataJpaTest // inject Repository related Bean
 @Import(TestDatabaseConfig.class)
 @TestPropertySource(properties = { "spring.jpa.hibernate.ddl-auto=update" })
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

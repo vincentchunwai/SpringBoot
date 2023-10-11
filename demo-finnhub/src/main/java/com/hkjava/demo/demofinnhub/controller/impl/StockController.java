@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.hkjava.demo.demofinnhub.controller.StockOperation;
+import com.hkjava.demo.demofinnhub.entity.StockPrice;
 import com.hkjava.demo.demofinnhub.entity.StockSymbolEntity;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.ApiResponse;
@@ -64,6 +65,11 @@ public class StockController implements StockOperation {
   @Override
   public StockSymbolEntity findBySymbol(String symbol){
     return webStockService.findBySymbol(symbol);
+  }
+
+  @Override
+  public List<StockPrice> findAllPriceByIdOrderByStockPriceId(long id){
+    return webStockService.findAllPriceById(id);
   }
 
 }

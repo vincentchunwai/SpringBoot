@@ -17,15 +17,11 @@ public class TestDatabaseConfig {
   @Bean
   @Primary
   @ConfigurationProperties(prefix = "spring.datasource")
-  DataSource dataSource(){
+  DataSource dataSource() {
     return DataSourceBuilder.create()
       .url("jdbc:h2:mem:testdb")
       .driverClassName("org.h2.Driver")
       .build();
-  }
+  } 
 
-  @Bean
-  ObjectMapper objectMapper(){
-    return new ObjectMapper();
-  }
 }

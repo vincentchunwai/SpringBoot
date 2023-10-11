@@ -31,12 +31,13 @@ public interface StockPriceRepository extends JpaRepository<StockPrice, Long>{
   @Query("Select sp from StockPrice sp where sp.currentPrice > sp.prevDayClose")
   List<StockPrice> findByCurrentPriceIsGreaterThanPrevDayClose();
 
-  @Query("Select sp from StockPrice sp where sp.stock.id = :id")
-  List<StockPrice> findAllPriceById(@Param(value = "id") Long id); 
+  @Query("SELECT sp FROM StockPrice sp WHERE sp.stock.id = :id ORDER BY sp.id")
+  List<StockPrice> findAllPriceByIdOrderByStockPriceId(@Param(value = "id") Long id);
 
-  @Query(value = "SELECT s.stock_id AS stockId, CAST(s.datetime AS DATE) AS date, MAX(s.datetime) AS maxDateTime, prev_day_close" +
-  "FROM finnhub_stock_prices s" +
-  "GROUP BY s.stock_id, CAST(s.datetime AS DATE);", 
-    nativeQuery = true)
-    List<StockPrice> findLastDataForEachStock();
+
+  @Query(value = "SELECT s.stock_id AS stockId, CAST(s.datetime AS DATE) AS date, MAX(s.datetime) AS maxDateTime, MAX(prev_day_close) AS prevDayClose FROM finnhub_stock_prices s GROUP BY s.stock_id, CAST(s.datetime AS DATE)", nativeQuery = true)
+  List<StockPrice> findLastDataForEachStock();
+
+
+
 }

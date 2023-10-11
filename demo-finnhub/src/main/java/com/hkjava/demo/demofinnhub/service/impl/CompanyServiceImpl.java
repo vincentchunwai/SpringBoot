@@ -28,6 +28,7 @@ import com.hkjava.demo.demofinnhub.service.CompanyService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
+//@Qualifier("CompanyServiceImpl")
 public class CompanyServiceImpl implements CompanyService {
 
   @Autowired

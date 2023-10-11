@@ -11,9 +11,12 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.hkjava.demo.demofinnhub.config.TestDatabaseConfig;
 import com.hkjava.demo.demofinnhub.controller.impl.StockController;
 import com.hkjava.demo.demofinnhub.model.dto.CompanyProfileDTO;
 import com.hkjava.demo.demofinnhub.model.dto.StockDTO;
@@ -21,6 +24,7 @@ import com.hkjava.demo.demofinnhub.service.WebStockService;
 
 @WebMvcTest(StockController.class)
 @ActiveProfiles("test")
+//@Import(TestDatabaseConfig.class)
 public class StockControllerTest {
 
   @Autowired

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -32,7 +33,7 @@ public class AppConfig {
   }
 
   @Bean
-public RestTemplate restTemplate() {
+   RestTemplate restTemplate() {
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
@@ -45,8 +46,7 @@ public RestTemplate restTemplate() {
   }
 
   @Bean
-  @Primary
-  public ObjectMapper objectMapper() {
+  ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.registerModule(new JavaTimeModule()); // Register the JavaTimeModule
     return objectMapper;

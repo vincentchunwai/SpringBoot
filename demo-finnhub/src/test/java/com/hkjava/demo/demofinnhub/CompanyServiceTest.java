@@ -19,9 +19,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
+import com.hkjava.demo.demofinnhub.config.TestDatabaseConfig;
 import com.hkjava.demo.demofinnhub.entity.Stock;
 import com.hkjava.demo.demofinnhub.exception.FinnhubException;
 import com.hkjava.demo.demofinnhub.infra.RedisHelper;
@@ -32,10 +34,14 @@ import com.hkjava.demo.demofinnhub.service.StockService;
 
 @SpringBootTest
 @ActiveProfiles("test")
+//@Import(TestDatabaseConfig.class)
 public class CompanyServiceTest {
   
   @MockBean
   private StockRepository stockRepository;
+
+  @MockBean
+  private RedisHelper redisHelper;
 
   @MockBean
   private RedisHelper<CompanyProfile> redisProfileHelper;
@@ -60,7 +66,7 @@ public class CompanyServiceTest {
     assertThat(stocks,hasItem(hasProperty("country", equalTo("HK"))));
   }
 
-  //@Test
+   //@Test
   void testRestTemplate() throws FinnhubException {
     String expectedUrl = 
       "HTTPS://finnhub.io/api/v1/stock/profile2?symbol=AAPL&token="
@@ -76,8 +82,4 @@ public class CompanyServiceTest {
       assertThat(profile, hasProperty("country",equalTo("US")));
   }
 
- /*  @Test
-  void testRestTemplate(){
-    String expectedURL = "https://finnhub"
-  } */
 }

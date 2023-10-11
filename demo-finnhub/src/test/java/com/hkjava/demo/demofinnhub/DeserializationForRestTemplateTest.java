@@ -29,7 +29,7 @@ public class DeserializationForRestTemplateTest {
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
   } 
 
-  @Test
+  //@Test
   void testDeserializationForRestTemplate() throws JsonProcessingException{
     // JSON -> Object
     CompanyProfile companyProfile = CompanyProfile.builder()

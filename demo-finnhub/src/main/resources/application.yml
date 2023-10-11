@@ -17,8 +17,9 @@ api:
     endpoint: '/PublicHolidays'
 
 spring.datasource:
-  driverClassName: 'org.hibernate.dialect.PostgreSQLDialect'
+  #driverClassName: 'org.hibernate.dialect.PostgreSQLDialect'
   #driverClassName: 'org.h2.Driver'
+  driverClassName: 'org.postgresql.Driver'
   #url: 'jdbc:h2:mem:jpademo'
   #username: 'sa'
   #password: 
@@ -30,13 +31,27 @@ spring:
     console:
       enabled: true
 
+management.endpoints.web.base-path: /data
+management.endpoints.web.exposure.include: "*"
+web.exposure.include: beans, mappings
+management.endpoint.health.group.readiness.show-details: always
+
+        
+info.application:
+  name: "HelloWorld"
+  description: "A Demo for Spring Boot hello World"
+  author:
+    name: "Vincent Cheung"
+    bio: "Testing Bio"
+    
+    
+
   
 
 spring.jpa:
   show-sql: true
   hibernate.ddl-auto: update # update
-  ## Hibernate Properties
-  # properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  #properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
   # properties.hibernate.dialect: org.h2.Driver
   # Hibernate ddl auto (create, create-drop, validate, update)
 spring.data.redis:
@@ -46,6 +61,6 @@ spring.data.redis:
 spring.sql.init:
   mode: always # always
   platform: h2
-  # schema-locations: classpath:ddl/DDL_DROPS.sql, classpath:ddl/DDL_TUSERS.sql, classpath:ddl/DDL_TPOSTS.sql
+  #schema-locations: classpath:ddl/DDL_DROPS.sql, classpath:ddl/DDL_TUSERS.sql, classpath:ddl/DDL_TPOSTS.sql
 
-#spring.profiles.active: enableScheduling
+spring.profiles.active: enableScheduling

@@ -44,7 +44,7 @@ public class SourcePoint {
   public static Map<String, List<SourcePoint>> sourceMapOnSecond = new HashMap<>();
 
   private double price;
-  private LocalDate time;
+  private LocalDateTime time;
 
   public void insertDataOnDailyRate(String stockSymbol){
     StockSymbolEntity target = webStockService.findBySymbol(stockSymbol);
@@ -58,7 +58,7 @@ public class SourcePoint {
       for(StockPrice p: allPrices){
         listToInsert.add(SourcePoint.builder()
           .price(p.getPrevDayClose())
-          .time(p.getDateTime().toLocalDate())
+          .time(p.getDateTime())
           .build());
       }
       sourceMapForDay.put(stockSymbol, listToInsert);
@@ -73,7 +73,7 @@ public class SourcePoint {
       for(StockPrice p: allPrices){
         listToInsert.add(SourcePoint.builder()
           .price(p.getCurrentPrice())
-          .time(p.getDateTime().toLocalDate())
+          .time(p.getDateTime())
           .build());
       }
       sourceMapOnSecond.put(stockSymbol, listToInsert);

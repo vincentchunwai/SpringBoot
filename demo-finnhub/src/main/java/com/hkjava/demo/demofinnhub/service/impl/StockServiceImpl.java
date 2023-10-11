@@ -21,6 +21,7 @@ import com.hkjava.demo.demofinnhub.model.apiModel.Quote;
 import com.hkjava.demo.demofinnhub.service.StockService;
 
 @Service
+//@Qualifier("StockServiceImpl")
 public class StockServiceImpl implements StockService {
 
   @Autowired

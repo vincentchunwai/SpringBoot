@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.type.SerializableType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Builder;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Setter
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Indicators implements Serializable{
   private String stockSymbol;
   @JsonIgnore
@@ -32,15 +34,15 @@ public class Indicators implements Serializable{
   private String s;
   @JsonIgnore
   private List<Double> t;
-  @JsonIgnore
+  //@JsonIgnore
   private List<Double> v;
-  @JsonInclude(JsonInclude.Include.NON_NULL)
+  //@JsonInclude(JsonInclude.Include.NON_NULL)
   private List<Double> rsi;
-  @JsonInclude(JsonInclude.Include.NON_NULL)
+  //@JsonInclude(JsonInclude.Include.NON_NULL)
   private List<Double> macd;
-  @JsonInclude(JsonInclude.Include.NON_NULL)
+  //@JsonInclude(JsonInclude.Include.NON_NULL)
   private List<Double> sma;
-  @JsonInclude(JsonInclude.Include.NON_NULL)
+  //@JsonInclude(JsonInclude.Include.NON_NULL)
   private List<Double> atr;
 
   public Indicators(String stockSymbol){
